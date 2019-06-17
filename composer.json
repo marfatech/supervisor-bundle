@@ -1,0 +1,24 @@
+{
+    "name": "wakeapp/supervisor-bundle",
+    "description": "Symfony bundle which allows you to use @Supervisor annotations to configure how Supervisor runs your commands.",
+    "type": "symfony-bundle",
+    "keywords": ["symfony-bundle", "supervisor", "supervisord"],
+    "license": "MIT",
+
+    "require": {
+        "php":                          "~7.1",
+        "symfony/config":               "~3.4||~4.0",
+        "symfony/dependency-injection": "~3.4||~4.0",
+        "symfony/finder":               "~3.4||~4.0",
+        "symfony/http-kernel":          "~3.4||~4.0",
+        "symfony/console":              "~3.4||~4.0",
+        "symfony/cache":                "~3.4||~4.0",
+        "francodacosta/supervisord":    "~1.0",
+        "doctrine/annotations":         "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wakeapp\\Bundle\\SupervisorBundle\\": ""
+        }
+    }
+}

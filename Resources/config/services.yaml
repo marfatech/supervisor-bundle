@@ -1,0 +1,21 @@
+services:
+    Wakeapp\Bundle\SupervisorBundle\Service\SupervisorAnnotationService:
+        class: Wakeapp\Bundle\SupervisorBundle\Service\SupervisorAnnotationService
+        arguments:
+            - '@annotation_reader'
+            - '%wakeapp_supervisor.config%'
+
+    Wakeapp\Bundle\SupervisorBundle\Service\SupervisorSourceService:
+        class: Wakeapp\Bundle\SupervisorBundle\Service\SupervisorSourceService
+        arguments:
+            - '@Wakeapp\Bundle\SupervisorBundle\Service\SupervisorAnnotationService'
+            - '%kernel.project_dir%'
+            - '%wakeapp_supervisor.config%'
+
+
+    Wakeapp\Bundle\SupervisorBundle\Command\DumpCommand:
+        class: Wakeapp\Bundle\SupervisorBundle\Command\DumpCommand
+        calls:
+            - ['injectDependency', ['@Wakeapp\Bundle\SupervisorBundle\Service\SupervisorAnnotationService', '@Wakeapp\Bundle\SupervisorBundle\Service\SupervisorSourceService']]
+        tags:
+            - { name: console.command }
