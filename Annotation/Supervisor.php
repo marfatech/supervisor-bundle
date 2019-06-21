@@ -29,6 +29,11 @@ class Supervisor
     /**
      * @var string
      */
+    public $delay;
+
+    /**
+     * @var string
+     */
     public $console;
 
     /**

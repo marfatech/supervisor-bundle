@@ -208,12 +208,17 @@ class SupervisorAnnotationService
     protected function buildCommand(ConfigDto $configDto, Supervisor $annotation, ?string $environment): string
     {
         $executor = $this->getExecutor($configDto, $annotation);
+        $delay = $this->getDelay($configDto, $annotation);
         $console = $this->getConsole($configDto, $annotation);
         $commandName = $this->getCommandName($annotation);
         $params = $this->getParams($annotation);
         $environment = $this->getEnvironment($environment);
 
         $command = sprintf('%s %s %s %s %s', $executor, $console, $commandName, $params, $environment);
+
+        if ($delay) {
+            $command = sprintf("bash -c 'sleep %s && %s'", $delay, $command);
+        }
 
         return $command;
     }
@@ -227,6 +232,19 @@ class SupervisorAnnotationService
     protected function getExecutor(ConfigDto $configDto, Supervisor $annotation): string
     {
         return $annotation->executor ?? $configDto->executor ?? '';
+    }
+
+    /**
+     * @param ConfigDto $configDto
+     * @param Supervisor $annotation
+     *
+     * @return int
+     */
+    protected function getDelay(ConfigDto $configDto, Supervisor $annotation): int
+    {
+        $delay = $annotation->delay ?? $configDto->delay ?? 0;
+
+        return (int)$delay;
     }
 
     /**

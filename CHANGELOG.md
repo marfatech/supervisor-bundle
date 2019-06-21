@@ -1,3 +1,7 @@
+## [0.2.1] - 2019-06-21
+### Added
+- Added delay for command
+
 ## [0.1.1] - 2019-06-21
 ### Fixed
 - Fixed replace non alphanumeric chars to `_`.
