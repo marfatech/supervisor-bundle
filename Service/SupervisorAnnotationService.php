@@ -189,7 +189,7 @@ class SupervisorAnnotationService
     protected function buildProgramName(Supervisor $annotation, int $instance): string
     {
         $commandName = $this->getCommandName($annotation);
-        $commandName = str_replace([':', ' '], '_', $commandName);
+        $commandName = preg_replace('/[^\da-z]/i', '_', $commandName);
 
         if ($instance > 1) {
             $commandName .= '_' . $instance;
