@@ -147,11 +147,12 @@ class SupervisorAnnotationService
                 $command = $this->buildCommand($configDto, $annotation, $environment);
                 $options = $configDto->options;
 
-                $programList[] = [
+                $programList[] = $options + [
                         'name' => $programName,
+                        'process_name' => '%(program_name)s_%(process_num)02d',
                         'command' => $command,
                         'numprocs' => $annotation->processes ?? 1,
-                    ] + $options;
+                    ];
             }
         }
 
@@ -188,7 +189,7 @@ class SupervisorAnnotationService
      */
     protected function buildProgramName(Supervisor $annotation, int $instance): string
     {
-        $programName = $annotation->commandName ?? '';
+        $programName = $annotation->programName ?? '';
 
         if ($programName) {
             return $programName;

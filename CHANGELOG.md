@@ -1,3 +1,9 @@
+## [0.3.1] - 2019-06-26
+### Fixed
+- Fix use incorrect param
+### Changed
+- Change sequence process params, customer params priority
+
 ## [0.3.0] - 2019-06-26
 ### Added
 - Added programName for command
