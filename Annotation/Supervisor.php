@@ -39,6 +39,11 @@ class Supervisor
     /**
      * @var string
      */
+    public $programName;
+
+    /**
+     * @var string
+     */
     public $commandName;
 
     /**

@@ -177,7 +177,7 @@ class SupervisorAnnotationService
         $annotationServerList = explode(',', mb_strtolower($annotation->server));
         $annotationServerList = array_map('trim', $annotationServerList);
 
-        return in_array(mb_strtolower($server), $annotationServerList);
+        return in_array(mb_strtolower($server), $annotationServerList, true);
     }
 
     /**
@@ -188,14 +188,20 @@ class SupervisorAnnotationService
      */
     protected function buildProgramName(Supervisor $annotation, int $instance): string
     {
-        $commandName = $this->getCommandName($annotation);
-        $commandName = preg_replace('/[^\da-z]/i', '_', $commandName);
+        $programName = $annotation->commandName ?? '';
 
-        if ($instance > 1) {
-            $commandName .= '_' . $instance;
+        if ($programName) {
+            return $programName;
         }
 
-        return $commandName;
+        $programName = $this->getCommandName($annotation);
+        $programName = preg_replace('/[^\da-z]/i', '_', $programName);
+
+        if ($instance > 1) {
+            $programName .= '_' . $instance;
+        }
+
+        return $programName;
     }
 
     /**

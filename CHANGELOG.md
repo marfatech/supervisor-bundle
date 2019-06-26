@@ -1,3 +1,7 @@
+## [0.3.0] - 2019-06-26
+### Added
+- Added programName for command
+
 ## [0.2.0] - 2019-06-21
 ### Added
 - Added delay for command
