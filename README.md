@@ -82,7 +82,7 @@ use Symfony\Component\Console\Command\Command;
 use Wakeapp\Bundle\SupervisorBundle\Annotation\Supervisor;
 
 /**
- * @Supervisor(processes=3, params="--send", server="web")
+ * @Supervisor(processes=3, commandName="namespace:command", params="--send", delayBefore=3, delayAfter=5, server="web")
  */
 class AcmeCommand extends Command
 {

@@ -17,6 +17,7 @@ use Doctrine\Common\Annotations\Reader;
 use Francodacosta\Supervisord\Command;
 use Francodacosta\Supervisord\Configuration;
 use Francodacosta\Supervisord\Processors\CommandConfigurationProcessor;
+use Psr\Log\LoggerAwareTrait;
 use ReflectionClass;
 use ReflectionException;
 use Wakeapp\Bundle\SupervisorBundle\Annotation\Supervisor;
@@ -25,6 +26,8 @@ use function sprintf;
 
 class SupervisorAnnotationService
 {
+    use LoggerAwareTrait;
+
     /**
      * @var Reader
      */
@@ -134,16 +137,15 @@ class SupervisorAnnotationService
                 continue;
             }
 
-            foreach ($supervisorAnnotationList as $index => $annotation) {
+            foreach ($supervisorAnnotationList as $instance => $annotation) {
                 $isValid = $this->checkAnnotation($annotation, $server);
 
                 if ($isValid === false) {
                     continue;
                 }
 
-                $instance = $index + 1;
-
                 $programName = $this->buildProgramName($annotation, $instance);
+
                 $command = $this->buildCommand($configDto, $annotation, $environment);
                 $options = $configDto->options;
 
@@ -172,7 +174,7 @@ class SupervisorAnnotationService
         }
 
         if (empty($annotation->server)) {
-            throw new \RuntimeException('Annotation "server" not found');
+            return true;
         }
 
         $annotationServerList = explode(',', mb_strtolower($annotation->server));
@@ -215,16 +217,26 @@ class SupervisorAnnotationService
     protected function buildCommand(ConfigDto $configDto, Supervisor $annotation, ?string $environment): string
     {
         $executor = $this->getExecutor($configDto, $annotation);
-        $delay = $this->getDelay($configDto, $annotation);
+        $delayBefore = $this->getDelayBefore($configDto, $annotation);
+        $delayAfter = $this->getDelayAfter($configDto, $annotation);
         $console = $this->getConsole($configDto, $annotation);
         $commandName = $this->getCommandName($annotation);
         $params = $this->getParams($annotation);
         $environment = $this->getEnvironment($environment);
 
         $command = sprintf('%s %s %s %s %s', $executor, $console, $commandName, $params, $environment);
+        $command = trim($command);
 
-        if ($delay) {
-            $command = sprintf("bash -c 'sleep %s && %s'", $delay, $command);
+        if ($delayBefore || $delayAfter) {
+            if ($delayBefore) {
+                $command = sprintf("sleep %s && %s", $delayBefore, $command);
+            }
+
+            if ($delayAfter) {
+                $command = sprintf("%s && sleep %s", $command, $delayAfter);
+            }
+
+            $command = sprintf("bash -c '%s'", $command);
         }
 
         return $command;
@@ -247,9 +259,22 @@ class SupervisorAnnotationService
      *
      * @return int
      */
-    protected function getDelay(ConfigDto $configDto, Supervisor $annotation): int
+    protected function getDelayBefore(ConfigDto $configDto, Supervisor $annotation): int
     {
-        $delay = $annotation->delay ?? $configDto->delay ?? 0;
+        $delay = $annotation->delayBefore ?? $configDto->delayBeore ?? 0;
+
+        return (int)$delay;
+    }
+
+    /**
+     * @param ConfigDto $configDto
+     * @param Supervisor $annotation
+     *
+     * @return int
+     */
+    protected function getDelayAfter(ConfigDto $configDto, Supervisor $annotation): int
+    {
+        $delay = $annotation->delayAfter ?? $configDto->delayAfter ?? 0;
 
         return (int)$delay;
     }

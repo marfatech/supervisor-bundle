@@ -13,11 +13,14 @@ declare(strict_types=1);
 
 namespace Wakeapp\Bundle\SupervisorBundle\Service;
 
+use Psr\Log\LoggerAwareTrait;
 use ReflectionException;
 use Symfony\Component\Finder\Finder;
 
 class SupervisorSourceService
 {
+    use LoggerAwareTrait;
+
     /**
      * @var SupervisorAnnotationService
      */
@@ -64,6 +67,9 @@ class SupervisorSourceService
             try {
                 $annotationList = $this->supervisorAnnotationService->getSupervisorAnnotationList($className);
             } catch (\Exception $exception) {
+                if ($this->logger) {
+                    $this->logger->warning($exception->getMessage());
+                }
                 continue;
             }
 

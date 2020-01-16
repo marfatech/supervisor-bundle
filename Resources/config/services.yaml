@@ -4,6 +4,8 @@ services:
         arguments:
             - '@annotation_reader'
             - '%wakeapp_supervisor.config%'
+        calls:
+            - ['setLogger', ['@?logger']]
 
     Wakeapp\Bundle\SupervisorBundle\Service\SupervisorSourceService:
         class: Wakeapp\Bundle\SupervisorBundle\Service\SupervisorSourceService
@@ -11,7 +13,8 @@ services:
             - '@Wakeapp\Bundle\SupervisorBundle\Service\SupervisorAnnotationService'
             - '%kernel.project_dir%'
             - '%wakeapp_supervisor.config%'
-
+        calls:
+            - ['setLogger', ['@?logger']]
 
     Wakeapp\Bundle\SupervisorBundle\Command\DumpCommand:
         class: Wakeapp\Bundle\SupervisorBundle\Command\DumpCommand

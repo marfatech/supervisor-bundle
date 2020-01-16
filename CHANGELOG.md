@@ -1,3 +1,12 @@
+## [1.0.0] - 2020-01-16
+### Added
+- Add logger optional dependency
+- Add integer parameters delayBefore and delayAfter
+### Removed
+- remove string parameter delay
+### Changed
+- annotation server optional
+
 ## [0.3.1] - 2019-06-26
 ### Fixed
 - Fix use incorrect param

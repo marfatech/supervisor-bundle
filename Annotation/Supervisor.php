@@ -27,9 +27,14 @@ class Supervisor
     public $executor;
 
     /**
-     * @var string
+     * @var integer
      */
-    public $delay;
+    public $delayBefore;
+
+    /**
+     * @var integer
+     */
+    public $delayAfter;
 
     /**
      * @var string
