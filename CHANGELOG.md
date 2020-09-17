@@ -1,3 +1,7 @@
+## [1.1.0] - 2020-09-17
+### Added
+- Add support Symfony ~5.0
+
 ## [1.0.0] - 2020-01-16
 ### Added
 - Add logger optional dependency
