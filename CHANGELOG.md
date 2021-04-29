@@ -1,3 +1,7 @@
+## [1.2.0] - 2021-04-29
+### Added
+- Add support php ~8.0
+
 ## [1.1.0] - 2020-09-17
 ### Added
 - Add support Symfony ~5.0
