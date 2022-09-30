@@ -15,7 +15,7 @@ Supervisor Bundle
 стабильной версии этого бандла:
 
 ```bash
-    composer require wakeapp/supervisor-bundle
+    composer require marfatech/supervisor-bundle
 ```
 *Эта команда подразумевает что [Composer](https://getcomposer.org) установлен и доступен глобально.*
 
@@ -36,7 +36,7 @@ class AppKernel extends Kernel
         $bundles = [
             // ...
 
-            new Wakeapp\Bundle\SupervisorBundle\WakeappSupervisorBundle(),
+            new Marfatech\Bundle\SupervisorBundle\MarfatechSupervisorBundle(),
         ];
 
         return $bundles;
@@ -52,7 +52,7 @@ class AppKernel extends Kernel
 Чтобы начать использовать бандл предварительная конфигурация **не** требуется и имеет следующее значение по умолчанию:
 
 ```yaml
-wakeapp_supervisor:
+marfatech_supervisor:
     exporter:
         # Supervisor program options могут быть описаны в этом блоке
         program:
@@ -79,7 +79,7 @@ wakeapp_supervisor:
 namespace Acme;
 
 use Symfony\Component\Console\Command\Command;
-use Wakeapp\Bundle\SupervisorBundle\Annotation\Supervisor;
+use Marfatech\Bundle\SupervisorBundle\Annotation\Supervisor;
 
 /**
  * @Supervisor(processes=3, commandName="namespace:command", params="--send", delayBefore=3, delayAfter=5, server="web")

@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Wakeapp\Bundle\SupervisorBundle\Annotation;
+namespace Marfatech\Bundle\SupervisorBundle\Annotation;
 
 use Doctrine\Common\Annotations\Annotation;
 

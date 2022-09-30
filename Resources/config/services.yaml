@@ -1,24 +1,24 @@
 services:
-    Wakeapp\Bundle\SupervisorBundle\Service\SupervisorAnnotationService:
-        class: Wakeapp\Bundle\SupervisorBundle\Service\SupervisorAnnotationService
+    Marfatech\Bundle\SupervisorBundle\Service\SupervisorAnnotationService:
+        class: Marfatech\Bundle\SupervisorBundle\Service\SupervisorAnnotationService
         arguments:
             - '@annotation_reader'
-            - '%wakeapp_supervisor.config%'
+            - '%marfatech_supervisor.config%'
         calls:
             - ['setLogger', ['@?logger']]
 
-    Wakeapp\Bundle\SupervisorBundle\Service\SupervisorSourceService:
-        class: Wakeapp\Bundle\SupervisorBundle\Service\SupervisorSourceService
+    Marfatech\Bundle\SupervisorBundle\Service\SupervisorSourceService:
+        class: Marfatech\Bundle\SupervisorBundle\Service\SupervisorSourceService
         arguments:
-            - '@Wakeapp\Bundle\SupervisorBundle\Service\SupervisorAnnotationService'
+            - '@Marfatech\Bundle\SupervisorBundle\Service\SupervisorAnnotationService'
             - '%kernel.project_dir%'
-            - '%wakeapp_supervisor.config%'
+            - '%marfatech_supervisor.config%'
         calls:
             - ['setLogger', ['@?logger']]
 
-    Wakeapp\Bundle\SupervisorBundle\Command\DumpCommand:
-        class: Wakeapp\Bundle\SupervisorBundle\Command\DumpCommand
+    Marfatech\Bundle\SupervisorBundle\Command\DumpCommand:
+        class: Marfatech\Bundle\SupervisorBundle\Command\DumpCommand
         calls:
-            - ['injectDependency', ['@Wakeapp\Bundle\SupervisorBundle\Service\SupervisorAnnotationService', '@Wakeapp\Bundle\SupervisorBundle\Service\SupervisorSourceService']]
+            - ['injectDependency', ['@Marfatech\Bundle\SupervisorBundle\Service\SupervisorAnnotationService', '@Marfatech\Bundle\SupervisorBundle\Service\SupervisorSourceService']]
         tags:
             - { name: console.command }

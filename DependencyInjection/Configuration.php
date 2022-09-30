@@ -5,13 +5,13 @@ declare(strict_types=1);
 /*
  * This file is part of the SupervisorBundle package.
  *
- * (c) Wakeapp <https://wakeapp.ru>
+ * (c) Marfatech <https://marfa-tech.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Wakeapp\Bundle\SupervisorBundle\DependencyInjection;
+namespace Marfatech\Bundle\SupervisorBundle\DependencyInjection;
 
 use Closure;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -41,7 +41,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('wakeapp_supervisor');
+        $rootNode = $treeBuilder->root('marfatech_supervisor');
 
         $rootNode
             ->children()

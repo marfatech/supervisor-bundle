@@ -1,5 +1,5 @@
 {
-    "name": "wakeapp/supervisor-bundle",
+    "name": "marfatech/supervisor-bundle",
     "description": "Symfony bundle which allows you to use @Supervisor annotations to configure how Supervisor runs your commands.",
     "type": "symfony-bundle",
     "keywords": ["symfony-bundle", "supervisor", "supervisord"],
@@ -16,10 +16,14 @@
         "symfony/cache":                "~3.4||~4.0||~5.0",
         "francodacosta/supervisord":    "~1.0",
         "doctrine/annotations":         "~1.0"
+    }
+    ,
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
     },
     "autoload": {
         "psr-4": {
-            "Wakeapp\\Bundle\\SupervisorBundle\\": ""
+            "Marfatech\\Bundle\\SupervisorBundle\\": ""
         }
     }
 }
