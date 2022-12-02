@@ -1,3 +1,6 @@
+### Fixed
+- Fix Configuration
+
 ## [1.2.0] - 2021-04-29
 ### Added
 - Add support php ~8.0
